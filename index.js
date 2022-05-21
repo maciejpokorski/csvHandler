@@ -1,4 +1,5 @@
 import * as fs from 'fs/promises';
+import { stringify } from 'csv-stringify';
 import { parse } from 'csv-parse/sync';
 
 const main = async () => {
@@ -8,11 +9,6 @@ const main = async () => {
   const orders = parse(orders_raw, { columns: true });
   const products = parse(products_raw, { columns: true });
   const customers = parse(customers_raw, { columns: true });
-
-  const order_prices = generateOrderPrices(orders, products);
-  const product_customers = generateProductCustomers(products, orders);
-  const customer_ranking = generateCustomerRanking(order_prices, customers);
-  order_prices.map((obj) => delete obj.customer);
 };
 
 export const generateOrderPrices = (orders, products) => {
@@ -43,9 +39,9 @@ export const generateProductCustomers = (products, orders) => {
         const index_to_write = product_customers.findIndex((product_customers) => product_customers.id === product.id);
         const first_customer_purchase = index_to_write === -1;
         if (first_customer_purchase) {
-          product_customers.push({ id: product.id, customer_ids: new Set([order.customer]) });
-        } else {
-          product_customers[index_to_write].customer_ids.add(order.customer);
+          product_customers.push({ id: product.id, customer_ids: order.customer });
+        } else if (!product_customers[index_to_write].customer_ids.includes(order.customer)) {
+          product_customers[index_to_write].customer_ids += ` ${order.customer}`;
         }
       });
     }

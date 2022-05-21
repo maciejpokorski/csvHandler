@@ -21,11 +21,11 @@ test('test product_customers', () => {
     { id: '1', customer: '1', products: '0 2 3' },
     { id: '2', customer: '2', products: '1 4' },
   ];
-  const expected_result = [{ id: '0', customer_ids: new Set(['0', '1']) },
-    { id: '1', customer_ids: new Set(['0', '2']) },
-    { id: '2', customer_ids: new Set(['1']) },
-    { id: '3', customer_ids: new Set(['1']) },
-    { id: '4', customer_ids: new Set(['2']) },
+  const expected_result = [{ id: '0', customer_ids: '0 1' },
+    { id: '1', customer_ids: '0 2' },
+    { id: '2', customer_ids: '1' },
+    { id: '3', customer_ids: '1' },
+    { id: '4', customer_ids: '2' },
   ];
   const product_customers = generateProductCustomers(products, orders);
   expect(product_customers).toStrictEqual(expected_result);
