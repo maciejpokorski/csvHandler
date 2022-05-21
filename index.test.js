@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { generateOrderPrices, generateProductCustomers, generateCustomerRanking } from './index';
 
 const products = [
@@ -10,29 +11,29 @@ const products = [
 ];
 test('test order product join', () => {
   const orders = [{ id: '0', customer: '0', products: '1 0 1 0' }];
-  const expected_result = [{ id: '0', customer: '0', euros: 18.943120182823662 }];
+  const expectedResult = [{ id: '0', customer: '0', euros: 18.943120182823662 }];
 
-  const order_prices = generateOrderPrices(orders, products);
-  expect(order_prices).toStrictEqual(expected_result);
+  const orderPrices = generateOrderPrices(orders, products);
+  expect(orderPrices).toStrictEqual(expectedResult);
 });
 
-test('test product_customers', () => {
+test('test productCustomers', () => {
   const orders = [{ id: '0', customer: '0', products: '1 0 1 0' },
     { id: '1', customer: '1', products: '0 2 3' },
     { id: '2', customer: '2', products: '1 4' },
   ];
-  const expected_result = [{ id: '0', customer_ids: '0 1' },
+  const expectedResult = [{ id: '0', customer_ids: '0 1' },
     { id: '1', customer_ids: '0 2' },
     { id: '2', customer_ids: '1' },
     { id: '3', customer_ids: '1' },
     { id: '4', customer_ids: '2' },
   ];
-  const product_customers = generateProductCustomers(products, orders);
-  expect(product_customers).toStrictEqual(expected_result);
+  const productCustomers = generateProductCustomers(products, orders);
+  expect(productCustomers).toStrictEqual(expectedResult);
 });
 
-test('test customer_ranking', () => {
-  const order_prices = [{ id: '0', customer: '0', euros: 18.943120182823662 },
+test('test customerRanking', () => {
+  const orderPrices = [{ id: '0', customer: '0', euros: 18.943120182823662 },
     { id: '1', customer: '22', euros: 61.42542135303493 },
     { id: '2', customer: '57', euros: 23.145479220995195 },
     { id: '3', customer: '22', euros: 34.399455367824324 }];
@@ -42,7 +43,7 @@ test('test customer_ranking', () => {
     { id: '22', firstname: 'Paul', lastname: 'Lavoisier' },
     { id: '57', firstname: 'Jane', lastname: 'Feynman' },
   ];
-  const expected_result = [
+  const expectedResult = [
     {
       id: '22', firstname: 'Paul', lastname: 'Lavoisier', total_euros: 95.82487672085925,
     },
@@ -53,8 +54,6 @@ test('test customer_ranking', () => {
       id: '0', firstname: 'John', lastname: 'Maxwell', total_euros: 18.943120182823662,
     },
   ];
-  const customer_ranking = generateCustomerRanking(order_prices, customers);
-  console.log(customer_ranking);
-  console.log(expected_result);
-  expect(customer_ranking).toStrictEqual(expected_result);
+  const customerRanking = generateCustomerRanking(orderPrices, customers);
+  expect(customerRanking).toStrictEqual(expectedResult);
 });
