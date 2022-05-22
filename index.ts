@@ -4,6 +4,7 @@ import { parse } from 'csv-parse/sync';
 import generateOrderPrices from './order_prices';
 import generateProductCustomers from './product_customers';
 import generateCustomerRanking from './customer_ranking';
+import { BufferEncoding } from './types';
 
 const saveCSV = (
   arrayOfObjects : Array<object>,
