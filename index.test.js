@@ -1,5 +1,7 @@
 /* eslint-disable no-undef */
-import { generateOrderPrices, generateProductCustomers, generateCustomerRanking } from './index';
+import generateOrderPrices from './order_prices';
+import generateProductCustomers from './product_customers';
+import generateCustomerRanking from './customer_ranking';
 
 const products = [
   { id: '0', name: 'screwdriver', cost: '2.981163654411736' },
